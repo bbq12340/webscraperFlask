@@ -1,8 +1,8 @@
-#Readme
+# Readme
 backend: NaverMapScraper
 
 rendering with: Flask
 
-#todo
+# todo
   1. db
   2. react style frontend
