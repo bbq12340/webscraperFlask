@@ -4,9 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report</title>
+    <style>
+        section {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(8, 1fr);
+        }
+    </style>
 </head>
 <body>
     <h1>Search Results</h1>
-    <h3>You are looking for {{searchingBy}}</h3>
+    <h3>There are {{resultNumbers}} results for {{searchingBy}}</h3>
+    <section>
+        <h4>상호명</h4>
+        <h4>별점</h4>
+        <h4>블로그 리뷰수</h4>
+        <h4>방문 리뷰수</h4>
+        <h4>업종</h4>
+        <h4>전화번호</h4>
+        <h4>지번</h4>
+        <h4>주소</h4>
+        {% for place in places %}
+        <span>{{place.name}}</span>
+        <span>{{place.star}}</span>
+        <span>{{place.blogReviews}}</span>
+        <span>{{place.reviewCoujnt}}</span>
+        <span>{{place.category}}</span>
+        <span>{{place.telephone}}</span>
+        <span>{{place.roadAddress}}</span>
+        <span>{{place.address}}</span>
+        {% endfor %}
+    </section>
 </body>
 </html>

@@ -24,24 +24,24 @@ class NaverMapScraper:
                 items = response['result']['place']['list']
                 for item in items:
                     data = {
-                        '업체명': item['name'],
-                        '업종': (',').join(item['category']),
-                        '블로그리뷰': item['reviewCount'],
-                        '전화번호': item['tel'],
-                        '도로명': item['roadAddress'],
-                        '지번': item['address'],
+                        'name': item['name'],
+                        'category': (',').join(item['category']),
+                        'blogReviews': item['reviewCount'],
+                        'telephone': item['tel'],
+                        'roadAddress': item['roadAddress'],
+                        'address': item['address'],
                         'id': item['id']
                     }
                     info = self.get_more_info(data['id'])
-                    data['별점'] = info['star']
-                    data['방문뷰'] = info['review']
+                    data['star'] = info['star']
+                    data['reviewCount'] = info['review']
                     scraped_items.append(data)
                 i = i + 1
             except KeyError:
                 break
-        df = pd.DataFrame(data=scraped_items, columns=['업체명', '별점', '방문뷰', '블로그리뷰', '업종','전화번호','도로명','지번'])
+        # places = pd.DataFrame(data=scraped_items, columns=['name', 'star', 'blogReviews', 'reviewCount', 'category','telephone','roadAddress','address'])
         # df.to_csv('output.csv', encoding='utf-8-sig', index=False)
-        return df
+        return scraped_items
     
     def get_more_info(self, id):
         query = "query getVisitorReviews($input: VisitorReviewsInput, $id: String) {↵  visitorReviews(input: $input) {↵    items {↵      id↵      rating↵      author {↵        id↵        nickname↵        from↵        imageUrl↵        objectId↵        url↵        __typename↵      }↵      body↵      thumbnail↵      media {↵        type↵        thumbnail↵        __typename↵      }↵      tags↵      status↵      visitCount↵      viewCount↵      visited↵      created↵      reply {↵        editUrl↵        body↵        editedBy↵        created↵        replyTitle↵        __typename↵      }↵      originType↵      item {↵        name↵        code↵        options↵        __typename↵      }↵      language↵      highlightOffsets↵      translatedText↵      businessName↵      showBookingItemName↵      showBookingItemOptions↵      bookingItemName↵      bookingItemOptions↵      __typename↵    }↵    starDistribution {↵      score↵      count↵      __typename↵    }↵    hideProductSelectBox↵    total↵    __typename↵  }↵  visitorReviewStats(input: {businessId: $id}) {↵    id↵    name↵    review {↵      avgRating↵      totalCount↵      scores {↵        count↵        score↵        __typename↵      }↵      imageReviewCount↵      __typename↵    }↵    visitorReviewsTotal↵    ratingReviewsTotal↵    __typename↵  }↵  visitorReviewThemes(input: {businessId: $id}) {↵    themeLists {↵      name↵      key↵      __typename↵    }↵    __typename↵  }↵}↵"
@@ -83,19 +83,4 @@ class NaverMapScraper:
         r = requests.get(self.API_URL, params=payload, headers=self.header).json()
         return r
     
-    def get_items_info(self, items):
-        scraped_items = []
-        for item in items:
-            data = {
-                '업체명': item['name'],
-                '업종': (',').join(item['category']),
-                '별점': None,
-                '리뷰갯수': item['reviewCount'],
-                '전화번호': item['tel'],
-                '도로명': item['roadAddress'],
-                '지번': item['address'],
-                '우편번호': None,
-                'id': item['id']
-            }
-        scraped_items.append(data)
-        return scraped_items
+   

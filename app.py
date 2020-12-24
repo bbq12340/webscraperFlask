@@ -12,15 +12,23 @@ def home():
     return render_template("home.html")
 
 @app.route("/report")
-def potato():
+def report():
     location = request.args.get("location")
     if location==None:
         return redirect("/")
     else:
-        spider = NaverMapScraper(location)
-        df = spider.scrape_info()
-        db[location] = df
+        if db.get(location):
+            places = db[location]
+        else:
+            spider = NaverMapScraper(location)
+            places = spider.scrape_info()
+            db[location] = places
         
-    return render_template("report.html", searchingBy=location)
+    return render_template(
+        "report.html", 
+        resultNumbers=len(places), 
+        searchingBy=location,
+        places = places
+        )
 
 app.run() 
