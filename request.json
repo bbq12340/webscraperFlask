@@ -1,0 +1,41 @@
+﻿{
+    "data": {
+        "visitorReviewStats": {
+            "__typename": "VisitorReviewStatsResult",
+            "id": 36528627,
+            "name": "바른도시락",
+            "ratingReviewsTotal": 1,
+            "review": {
+                "__typename": "VisitorReviewStats",
+                "avgRating": 4.5,
+                "imageReviewCount": null,
+                "scores": [
+                    {
+                        "__typename": "VisitorReviewScore",
+                        "count": 1,
+                        "score": null
+                    }
+                ],
+                "totalCount": 1
+            },
+            "visitorReviewsTotal": 1
+        },
+        "visitorReviewThemes": {
+            "__typename": "VisitorReviewThemesResult",
+            "themeLists": [
+                {
+                    "__typename": "VisitorReviewTheme",
+                    "key": "allTypes",
+                    "name": "전체"
+                }
+            ]
+        },
+        "visitorReviews": {
+            "__typename": "VisitorReviewsResult",
+            "hideProductSelectBox": null,
+            "items": [],
+            "starDistribution": [],
+            "total": 0
+        }
+    }
+}

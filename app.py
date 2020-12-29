@@ -31,4 +31,17 @@ def report():
         places = places
         )
 
+@app.route("/export")
+def export():
+    try:
+        location = request.args.get("location")
+        if not location:
+            raise Exception()
+        jobs = db.get(location)
+        if not jobs:
+            raise Exception()
+        return f"Generate CSV for {location}"
+    except:
+        return redirect("/")
+    
 app.run() 

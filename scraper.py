@@ -63,6 +63,8 @@ class NaverMapScraper:
             }
         }
         r = requests.post(self.graphql_url, json=data, headers=self.header).json()
+        # with open("request.json", "w", encoding="utf-8-sig") as f:
+        #     f.write(json.dumps(r, indent=4, sort_keys=True, ensure_ascii=False))
         info = {
             'star': r['data']['visitorReviewStats']['review']['avgRating'],
             'review': r['data']['visitorReviewStats']['visitorReviewsTotal']
